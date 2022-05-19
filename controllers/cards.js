@@ -76,10 +76,15 @@ const likeCard = async (req, res) => {
       { $addToSet: { likes: req.user._id } },
       { new: true },
     );
+    if (!card) {
+      const err = new Error(NotFoundIdCardErrorText);
+      err.statusCode = NOT_FOUND_ERROR_CODE;
+      throw err;
+    }
     res.status(OK_CODE).send(card);
   } catch (err) {
     if (err.kind === 'ObjectId') {
-      res.status(NOT_FOUND_ERROR_CODE).send({
+      res.status(BAD_REQUEST_ERROR_CODE).send({
         message: NotFoundIdCardErrorText,
         err,
       });
@@ -99,10 +104,15 @@ const dislikeCard = async (req, res) => {
       { $pull: { likes: req.user._id } },
       { new: true },
     );
+    if (!card) {
+      const err = new Error(NotFoundIdCardErrorText);
+      err.statusCode = NOT_FOUND_ERROR_CODE;
+      throw err;
+    }
     res.status(OK_CODE).send(card);
   } catch (err) {
     if (err.kind === 'ObjectId') {
-      res.status(NOT_FOUND_ERROR_CODE).send({
+      res.status(BAD_REQUEST_ERROR_CODE).send({
         message: NotFoundIdCardErrorText,
         err,
       });
