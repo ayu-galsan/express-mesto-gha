@@ -85,15 +85,22 @@ const likeCard = async (req, res) => {
   } catch (err) {
     if (err.kind === 'ObjectId') {
       res.status(BAD_REQUEST_ERROR_CODE).send({
+        message: `${ValidationErrorText} при постановке лайка`,
+        err,
+      });
+      return;
+    }
+    if (err.statusCode === NOT_FOUND_ERROR_CODE) {
+      res.status(NOT_FOUND_ERROR_CODE).send({
         message: NotFoundIdCardErrorText,
         err,
       });
-    } else {
-      res.status(SERVER_ERROR_CODE).send({
-        message: ServerErrorText,
-        err,
-      });
+      return;
     }
+    res.status(SERVER_ERROR_CODE).send({
+      message: ServerErrorText,
+      err,
+    });
   }
 };
 
@@ -113,15 +120,22 @@ const dislikeCard = async (req, res) => {
   } catch (err) {
     if (err.kind === 'ObjectId') {
       res.status(BAD_REQUEST_ERROR_CODE).send({
+        message: `${ValidationErrorText} при снятии лайка`,
+        err,
+      });
+      return;
+    }
+    if (err.statusCode === NOT_FOUND_ERROR_CODE) {
+      res.status(NOT_FOUND_ERROR_CODE).send({
         message: NotFoundIdCardErrorText,
         err,
       });
-    } else {
-      res.status(SERVER_ERROR_CODE).send({
-        message: ServerErrorText,
-        err,
-      });
+      return;
     }
+    res.status(SERVER_ERROR_CODE).send({
+      message: ServerErrorText,
+      err,
+    });
   }
 };
 
