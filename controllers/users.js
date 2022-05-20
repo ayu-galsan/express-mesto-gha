@@ -12,7 +12,6 @@ const getUsers = async (req, res) => {
   } catch (err) {
     res.status(SERVER_ERROR_CODE).send({
       message: ServerErrorText,
-      err,
     });
   }
 };
@@ -30,20 +29,17 @@ const getUserById = async (req, res) => {
     if (err.name === 'CastError') {
       res.status(BAD_REQUEST_ERROR_CODE).send({
         message: ValidationErrorText,
-        err,
       });
       return;
     }
     if (err.statusCode === NOT_FOUND_ERROR_CODE) {
       res.status(NOT_FOUND_ERROR_CODE).send({
         message: NotFoundIdUserErrorText,
-        err,
       });
       return;
     }
     res.status(SERVER_ERROR_CODE).send({
       message: ServerErrorText,
-      err,
     });
   }
 };
@@ -57,12 +53,10 @@ const createUser = async (req, res) => {
     if (err.name === 'ValidationError') {
       res.status(BAD_REQUEST_ERROR_CODE).send({
         message: ValidationErrorText,
-        err,
       });
     } else {
       res.status(SERVER_ERROR_CODE).send({
         message: ServerErrorText,
-        err,
       });
     }
   }
@@ -85,20 +79,12 @@ const updateProfile = async (req, res) => {
       console.log(err.message);
       res.status(BAD_REQUEST_ERROR_CODE).send({
         message: ValidationErrorText,
-        err,
+      });
+    } else {
+      res.status(SERVER_ERROR_CODE).send({
+        message: ServerErrorText,
       });
     }
-    if (err.statusCode === NOT_FOUND_ERROR_CODE) {
-      res.status(NOT_FOUND_ERROR_CODE).send({
-        message: NotFoundIdUserErrorText,
-        err,
-      });
-      return;
-    }
-    res.status(SERVER_ERROR_CODE).send({
-      message: ServerErrorText,
-      err,
-    });
   }
 };
 
@@ -119,20 +105,12 @@ const updateAvatar = async (req, res) => {
       console.log(err.message);
       res.status(BAD_REQUEST_ERROR_CODE).send({
         message: ValidationErrorText,
-        err,
+      });
+    } else {
+      res.status(SERVER_ERROR_CODE).send({
+        message: ServerErrorText,
       });
     }
-    if (err.statusCode === NOT_FOUND_ERROR_CODE) {
-      res.status(NOT_FOUND_ERROR_CODE).send({
-        message: NotFoundIdUserErrorText,
-        err,
-      });
-      return;
-    }
-    res.status(SERVER_ERROR_CODE).send({
-      message: ServerErrorText,
-      err,
-    });
   }
 };
 

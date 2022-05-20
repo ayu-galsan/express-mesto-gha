@@ -12,7 +12,6 @@ const getCards = async (req, res) => {
   } catch (err) {
     res.status(SERVER_ERROR_CODE).send({
       message: ServerErrorText,
-      err,
     });
   }
 };
@@ -27,12 +26,10 @@ const createCard = async (req, res) => {
     if (err.name === 'ValidationError') {
       res.status(BAD_REQUEST_ERROR_CODE).send({
         message: `${ValidationErrorText} при создании карточки`,
-        err,
       });
     } else {
       res.status(SERVER_ERROR_CODE).send({
         message: ServerErrorText,
-        err,
       });
     }
   }
@@ -51,20 +48,17 @@ const deleteCardById = async (req, res) => {
     if (err.name === 'CastError') {
       res.status(BAD_REQUEST_ERROR_CODE).send({
         message: `${ValidationErrorText} при удалении карточки`,
-        err,
       });
       return;
     }
     if (err.statusCode === NOT_FOUND_ERROR_CODE) {
       res.status(NOT_FOUND_ERROR_CODE).send({
         message: NotFoundIdCardErrorText,
-        err,
       });
       return;
     }
     res.status(SERVER_ERROR_CODE).send({
       message: ServerErrorText,
-      err,
     });
   }
 };
@@ -86,20 +80,17 @@ const likeCard = async (req, res) => {
     if (err.kind === 'ObjectId') {
       res.status(BAD_REQUEST_ERROR_CODE).send({
         message: `${ValidationErrorText} при постановке лайка`,
-        err,
       });
       return;
     }
     if (err.statusCode === NOT_FOUND_ERROR_CODE) {
       res.status(NOT_FOUND_ERROR_CODE).send({
         message: NotFoundIdCardErrorText,
-        err,
       });
       return;
     }
     res.status(SERVER_ERROR_CODE).send({
       message: ServerErrorText,
-      err,
     });
   }
 };
@@ -121,20 +112,17 @@ const dislikeCard = async (req, res) => {
     if (err.kind === 'ObjectId') {
       res.status(BAD_REQUEST_ERROR_CODE).send({
         message: `${ValidationErrorText} при снятии лайка`,
-        err,
       });
       return;
     }
     if (err.statusCode === NOT_FOUND_ERROR_CODE) {
       res.status(NOT_FOUND_ERROR_CODE).send({
         message: NotFoundIdCardErrorText,
-        err,
       });
       return;
     }
     res.status(SERVER_ERROR_CODE).send({
       message: ServerErrorText,
-      err,
     });
   }
 };

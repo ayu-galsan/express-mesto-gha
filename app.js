@@ -2,12 +2,9 @@ const express = require('express');
 
 const { PORT = 3000 } = process.env;
 const mongoose = require('mongoose');
-const path = require('path');
 const { routes } = require('./routes/app');
 
 const app = express();
-
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req, res, next) => {
   req.user = {
