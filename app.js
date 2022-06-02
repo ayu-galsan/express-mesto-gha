@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const { routes } = require('./routes/app');
 const { SERVER_ERROR_CODE, ServerErrorText, urlRegExp } = require('./utils/constans');
 const { login, createUser } = require('./controllers/users');
+const auth = require('./middlewares/auth');
 
 const app = express();
 
@@ -29,7 +30,7 @@ app.post('/signin', celebrate({
     password: Joi.string().required().min(6),
   }),
 }), login);
-
+app.use(auth);
 app.use(routes);
 
 app.use(errors());
